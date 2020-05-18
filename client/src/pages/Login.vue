@@ -47,6 +47,11 @@ export default {
       http.post('api/login', this.user)
         .then(res => console.log(res))
         .catch(err => console.log(err))
+
+
+      /*http.get('https://api.coindesk.com/v1/bpi/currentprice.json')
+      .then(response => (this.info = response.data.bpi))
+      .catch(error => console.log(error))*/
     }
   }
 }

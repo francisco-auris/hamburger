@@ -1,5 +1,6 @@
 // import ApiProduct from '../../api/ApiProduct'
 import { http } from '../../api/http'
+//import http from '@/http'
 
 const state = () => ({
   all: []
@@ -23,7 +24,7 @@ const mutations = {
 const actions = {
   getAllProducts ({commit}) {
     // let model = new ApiProduct();
-    return http.get('http://localhost:8000/api/produto').then(res => {
+    return http.get('api/produto').then(res => {
       commit('setProducts', res.data)
     })
   }
