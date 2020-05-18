@@ -31,8 +31,7 @@
 </div>
 </template>
 <script>
-import AuthServices from '../services/AuthServices.js'
-
+import http from '@/http'
 export default {
   data () {
     return {
@@ -43,8 +42,11 @@ export default {
     handleSubmit: function (e) {
       e.preventDefault()
       // Auth
-      let service = new AuthServices(this.user)
-      service.login()
+      //this.$store.dispatch('actionLogin', this.user);
+      //console.log(this.$store.state.user.token);
+      http.post('api/login', this.user)
+        .then(res => console.log(res))
+        .catch(err => console.log(err))
     }
   }
 }

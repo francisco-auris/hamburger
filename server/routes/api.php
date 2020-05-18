@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Http\Request;
 
 /*
@@ -16,17 +15,18 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
+Route::apiResource('users', 'UserController', ['middleware' => 'cors']);
 
+Route::post('login', 'Api\\AuthController@login', ['middleware' => 'cors']);
 
-
-Route::post('login', 'Api\\AuthController@login');
+Route::apiResource("produto", "ProdutoController", ['middleware' => 'cors']);
 
 Route::group(['middleware' => ['apiJwt']], function(){
 
     Route::post('logout', 'Api\\AuthController@logout');
 
-    Route::get('users', 'Api\\UserController@index');
+    //Route::apiResource('users', 'Api\\UserController');
 
 });
 
-Route::apiResource("produto", "ProdutoController", ['middleware' => 'cors']);
+

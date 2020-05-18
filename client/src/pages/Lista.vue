@@ -47,6 +47,7 @@
 <script>
 import CardProduto from '@/components/Produto'
 import Theback from '@/components/Theback'
+import { mapGetters} from 'vuex'
 
 export default {
 
@@ -58,12 +59,14 @@ export default {
   data () {
     return {
       message: '',
-      lista: {},
       filtro: ''
     }
   },
 
   computed: {
+    ...mapGetters({
+      lista: ['Product/getAll']
+    }),
     filtroProdutos () {
       if (this.filtro) {
         let regex = new RegExp(this.filtro.trim(), 'i')
@@ -75,9 +78,10 @@ export default {
   },
 
   created () {
-    this.$http.get('api/produto')
+    this.$store.dispatch('Product/getAllProducts')
+    /* this.$http.get('api/produto')
       .then(res => res.json(), err => console.log(err))
-      .then(produtos => this.lista = produtos)
+      .then(produtos => this.lista = produtos) */
   }
 }
 </script>

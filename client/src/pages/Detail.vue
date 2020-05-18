@@ -2,7 +2,6 @@
 <div>
 
     <btn-back />
-
     <v-container>
         <v-row justify="center" >
             <v-col cols="12" sm="6">
@@ -31,8 +30,6 @@
                     <p class="details" v-else>
                         Ingredientes **
                     </p>
-                    
-
                 </center>
             </v-col>
         </v-row>
@@ -59,25 +56,25 @@
 </div>
 </template>
 <script>
-import Cover from '../components/Cover';
-import Theback from '../components/Theback';
+import Cover from '../components/Cover'
+import Theback from '../components/Theback'
+import { mapGetters } from 'vuex'
 
 export default {
-    
-    components: {
-        'cover': Cover,
-        'btn-back': Theback
-    },
-    data(){
-        return {
-            produto: Array
-        }
-    },
-    created(){
-        this.$http.get('http://localhost:8000/api/produto/'+this.$route.params.id)
-            .then(res => res.json(), err => console.log(err))
-            .then(produtos => this.produto = produtos);
+
+  components: {
+    'cover': Cover,
+    'btn-back': Theback
+  },
+  data () {
+    return {
+      produto: Array
     }
+  },
+  mounted () {
+    this.produto = this.$store.getters['Product/getProduct'](this.$route.params.id)
+  }
+
 }
 </script>
 <style scoped>
