@@ -12,6 +12,11 @@ const mutations = {
 
   SET_USER (state, user) {
     state.user = user
+  },
+
+  USER_LOGOUT (state) {
+    state.token = ''
+    state.user = {}
   }
 }
 
@@ -33,11 +38,12 @@ const actions = {
 }
 
 const getters = {
-
+  getUser: (state) => state.user,
+  getToken: (state) => state.token
 }
 
 export default {
-  namespaceed: true,
+  namespaced: true,
   state,
   actions,
   getters,

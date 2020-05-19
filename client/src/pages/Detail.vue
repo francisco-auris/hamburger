@@ -72,7 +72,7 @@ export default {
     }
   },
   mounted () {
-    this.produto = this.$store.getters['Product/getProduct'](this.$route.params.id)
+    this.produto = this.$store.getters['product/getProduct'](this.$route.params.id)
   }
 
 }

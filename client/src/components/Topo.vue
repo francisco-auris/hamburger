@@ -13,12 +13,22 @@
         >
 
             <v-spacer>
-                <span class="font-weight-black">Auris maciel</span>
+                <span class="font-weight-black">{{ user.name }}</span>
             </v-spacer>
+
+            <v-btn text small color="error"><v-icon>exit_to_app</v-icon></v-btn>
 
         </v-app-bar>
     </div>
 </template>
+<script>
+import { mapState } from 'vuex'
+export default {
+  computed: {
+    ...mapState('user', ['token','user'])
+  }
+}
+</script>>
 <style scoped>
 .topo {
     width: 100%;

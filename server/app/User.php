@@ -11,6 +11,10 @@ class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
+    function address(){
+        return $this->hasMany('App\Address');
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -57,5 +61,5 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
-    
+
 }

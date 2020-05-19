@@ -52,7 +52,7 @@ export default {
     handleSubmit: function (e) {
       e.preventDefault()
       // Auth
-      this.$store.dispatch('actionLogin', this.user)
+      this.$store.dispatch('user/actionLogin', this.user)
       .then(res => console.log('Deu certo'))
       .catch(err => {
         if( err.status == 401 ){

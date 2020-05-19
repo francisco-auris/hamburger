@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <menu-topo />
+    <menu-topo v-if="online" />
     <router-view/>
 
-    <menu-bottom />
+    <menu-bottom v-if="online" />
   </div>
 </template>
 
 <script>
 import Topo from './components/Topo';
 import NavBottom from './components/Navbottom';
+import { mapState } from 'vuex'
 
 export default {
   components: {
     'menu-topo': Topo,
     'menu-bottom': NavBottom
   },
-  name: 'App'
+  name: 'App',
+  computed: {
+    online() { return Boolean(this.$store.state.user.token) }
+  }
 }
 </script>
 
