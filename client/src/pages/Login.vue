@@ -17,6 +17,14 @@
                         <v-btn type="submit" rounded class="btn" large>Entrar</v-btn>
                         <br>
                         <br>
+                        <v-alert
+                          dense
+                          color="#FF6060"
+                          :dismissible="true"
+                          v-if="message.length > 0"
+                        >
+                          {{ message }}
+                        </v-alert>
                         <br>
                         <br>
                         <br>
@@ -31,27 +39,29 @@
 </div>
 </template>
 <script>
-import http from '@/http'
+import { http } from '@/api/http'
+
 export default {
   data () {
     return {
-      user: {}
+      user: {},
+      message: ''
     }
   },
   methods: {
     handleSubmit: function (e) {
       e.preventDefault()
       // Auth
-      //this.$store.dispatch('actionLogin', this.user);
-      //console.log(this.$store.state.user.token);
-      http.post('api/login', this.user)
-        .then(res => console.log(res))
-        .catch(err => console.log(err))
-
-
-      /*http.get('https://api.coindesk.com/v1/bpi/currentprice.json')
-      .then(response => (this.info = response.data.bpi))
-      .catch(error => console.log(error))*/
+      this.$store.dispatch('actionLogin', this.user)
+      .then(res => console.log('Deu certo'))
+      .catch(err => {
+        if( err.status == 401 ){
+          this.message = "Usuário ou Senha inválido"
+        }else {
+          this.message = err.data.error
+        }
+      })
+      //this.actionLogin(this.user);
     }
   }
 }

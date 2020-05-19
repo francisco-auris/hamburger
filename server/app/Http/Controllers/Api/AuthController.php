@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -17,14 +18,14 @@ class AuthController extends Controller
      */
     public function login(Request $request)
     {
-        /*$credentials = $request->only('email', 'password');
+        $credentials = $request->only('email', 'password');
 
         if ($token = $this->guard()->attempt($credentials)) {
-            return $this->respondWithToken($token);
+            return $this->respondWithToken($token, $request->input('email'));
         }
 
-        return response()->json(['error' => 'Unauthorized'], 401);*/
-        return response()->json(['status' => 'teste'], 200);
+        return response()->json(['error' => 'Unauthorized'], 401);
+        //return response()->json(['status' => 'teste'], 200);
     }
 
     public function logout()
@@ -34,12 +35,13 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    protected function respondWithToken($token)
+    protected function respondWithToken($token, $emailUser)
     {
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => $this->guard()->factory()->getTTL() * 60
+            'expires_in' => $this->guard()->factory()->getTTL() * 60,
+            'user' => User::where('email', $emailUser)->get()
         ]);
     }
 

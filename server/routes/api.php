@@ -1,4 +1,8 @@
 <?php
+header('Access-Control-Allow-Origin:  *');
+header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+
 use Illuminate\Http\Request;
 
 /*
@@ -15,18 +19,23 @@ use Illuminate\Http\Request;
 /*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });*/
-Route::apiResource('users', 'UserController', ['middleware' => 'cors']);
-
-Route::post('login', 'Api\\AuthController@login', ['middleware' => 'cors']);
-
-Route::apiResource("produto", "ProdutoController", ['middleware' => 'cors']);
-
-Route::group(['middleware' => ['apiJwt']], function(){
-
-    Route::post('logout', 'Api\\AuthController@logout');
-
-    //Route::apiResource('users', 'Api\\UserController');
-
-});
+//Route::middleware(['cors'])->group(function (){
 
 
+    Route::post('teste', 'TesteController@teste');
+
+    Route::apiResource('users', 'UserController');
+
+    Route::post('login', 'Api\\AuthController@login');
+
+    Route::apiResource("produto", "ProdutoController");
+
+    Route::group(['middleware' => ['apiJwt']], function(){
+
+        Route::post('logout', 'Api\\AuthController@logout');
+
+        //Route::apiResource('users', 'Api\\UserController');
+
+    });
+
+//});
