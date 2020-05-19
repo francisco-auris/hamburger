@@ -4,6 +4,7 @@ import Home from '@/pages/Home'
 import Detail from '@/pages/Detail'
 import Lista from '@/pages/Lista'
 import Login from '@/pages/Login'
+import Register from '@/pages/Registro'
 import NotAuthorization from '@/pages/NotAuthorization'
 
 Vue.use(Router)
@@ -14,21 +15,17 @@ export default new Router({
     {
       path: '/',
       name: 'Home',
-      component: Login,
-      meta: {auth: false}
+      component: Home,
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register,
     },
     {
       path: '/lista',
       name: 'Lista',
       component: Lista,
-      beforeEnter: (to, from, next) => {
-        const token = localStorage.getItem('user-token')
-        if (!token) {
-          next(true)
-        }else {
-          next('/401')
-        }
-      }
     },
     {
       path: '/401',
@@ -39,7 +36,6 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail,
-      meta: {auth: true}
     },
     {
       path: '/login',

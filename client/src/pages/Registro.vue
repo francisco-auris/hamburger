@@ -1,6 +1,6 @@
 <template>
 <div>
-    <v-container>
+  <v-container>
 
         <v-row justify-sm="center">
 
@@ -9,12 +9,15 @@
             </v-col>
             <v-col cols="12">
                 <form @submit="handleSubmit($event)" >
+                    <h1 align="center">Cadastro</h1>
+                    <input type="text" class="form-input" placeholder="Seu nome" v-model="user.name">
+                    <br>
                     <input type="text" class="form-input" placeholder="Seu email" v-model="user.email">
                     <br>
                     <input type="password" class="form-input" placeholder="Sua senha" v-model="user.password">
 
                     <center>
-                        <v-btn type="submit" rounded class="btn" large>Entrar</v-btn>
+                        <v-btn type="submit" rounded class="btn" large>Registrar-se</v-btn>
                         <br>
                         <br>
                         <v-alert
@@ -29,7 +32,6 @@
                         <br>
                         <br>
                         <br>
-                        <router-link :to="{ name: 'Register' }">Clique aqui para se <span>Registrar</span></router-link>
                     </center>
                 </form>
             </v-col>
@@ -44,27 +46,28 @@ import { http } from '@/api/http'
 export default {
   data () {
     return {
-      user: {},
+      user: {
+        name: '', email: '', password: ''
+      },
       message: ''
     }
   },
   methods: {
-    handleSubmit: function (e) {
-      e.preventDefault()
-      // Auth
-      this.$store.dispatch('user/actionLogin', this.user)
-      .then(res => {
-        console.log('Deu certo')
-        this.$router.push( {name: 'Lista'} );
-      })
-      .catch(err => {
-        if( err.status == 401 ){
-          this.message = "Usuário ou Senha inválido"
-        }else {
-          this.message = err.data.error
-        }
-      })
-      //this.actionLogin(this.user);
+    handleSubmit(e){
+      e.preventDefault();
+      if( this.user.name == '' || this.user.email == '' || this.user.password == '' ){
+        this.message = "Verifique o preenchimento de todos os campos"
+      }
+      else {
+        this.message = ''
+        //send dados for backend
+        http.post('api/users', this.user)
+          .then(res => {
+            alert('Usuario cadastrado com sucesso');
+            this.$router.push( {name: 'Login'} );
+          })
+          .catch(err => this.message = err.data)
+      }
     }
   }
 }

@@ -28,7 +28,7 @@
                         ></v-skeleton-loader>
                     </v-sheet>
                     <p class="details" v-else>
-                        Ingredientes **
+                        {{ produto.ingredientes }}
                     </p>
                 </center>
             </v-col>
