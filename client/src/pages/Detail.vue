@@ -47,8 +47,11 @@
             <p v-else>
                 <h1><sup>R$</sup> {{ produto.preco }}</h1>
             </p>
-            <div class="text-center">
-                <v-btn rounded color="primary" dark large>Adicionar ao carrinho <v-icon>add_shopping_cart</v-icon></v-btn>
+            <div class="text-center" v-if="!cart">
+                <v-btn rounded color="primary" @click="addProductCart" dark large>Adicionar ao carrinho <v-icon>add_shopping_cart</v-icon></v-btn>
+            </div>
+            <div class="text-center" v-else>
+              <div class="okay"><v-icon>done</v-icon></div>
             </div>
         </center>
     </div>
@@ -68,16 +71,44 @@ export default {
   },
   data () {
     return {
-      produto: Array
+      produto: Array,
+      cart: Boolean
     }
   },
   mounted () {
+    //console.log(this.$store.getters['cart/vefProductCart'](1))
     this.produto = this.$store.getters['product/getProduct'](this.$route.params.id)
+    this.cart = this.$store.getters['cart/vefProductCart'](this.$route.params.id)
+    ///console.log(this.$store.getters['cart/vefProductCart'](this.$route.params.id), this.$route.params.id)
+  },
+  computed: {
+    /*...mapGetters('cart',{
+      vefShow: 'getItems'
+    }),*/
+  },
+  methods: {
+    addProductCart(){
+      //console.log(this.produto.id)
+      this.cart = true
+      this.$store.dispatch('cart/addProductToCart', this.produto.id);
+    }
   }
 
 }
 </script>
 <style scoped>
+.okay {
+  width: 50px;
+  height: 50px;
+  border-radius: 50px;
+  padding: 25px;
+  background-color: #2ECC71;
+  text-align: center;
+  padding: 0px;
+  line-height: 50px;
+  color: white;
+  box-shadow: 0px 1px 3px rgba(0,0,0,0.3);
+}
 .theme--light {
     background-color: transparent !important;
 }

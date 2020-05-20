@@ -2,12 +2,15 @@
 <div>
     <v-container>
 
-        <v-row justify-sm="center">
+        <v-row justify-sm="center" justify="center">
 
-            <v-col cols="12">
+            <v-col cols="12" lg="6">
                 <center><img src="../assets/icon.png" width="160"></center>
             </v-col>
-            <v-col cols="12">
+
+        </v-row>
+        <v-row justify-sm="center" justify="center">
+            <v-col cols="12" lg="6">
                 <form @submit="handleSubmit($event)" >
                     <input type="text" class="form-input" placeholder="Seu email" v-model="user.email">
                     <br>
@@ -35,6 +38,7 @@
             </v-col>
 
         </v-row>
+
     </v-container>
 </div>
 </template>

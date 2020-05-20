@@ -27,6 +27,9 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+.container {
+  padding: 25px !important;
+}
 #app {
   margin-top: 60px;
   margin-bottom: 50px;

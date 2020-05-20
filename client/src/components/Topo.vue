@@ -16,7 +16,7 @@
                 <span class="font-weight-black">{{ user.name }}</span>
             </v-spacer>
 
-            <v-btn text small color="error"><v-icon>exit_to_app</v-icon></v-btn>
+            <v-btn text small color="error" @click="logout"><v-icon>exit_to_app</v-icon></v-btn>
 
         </v-app-bar>
     </div>
@@ -26,6 +26,12 @@ import { mapState } from 'vuex'
 export default {
   computed: {
     ...mapState('user', ['token','user'])
+  },
+  methods: {
+    logout(){
+      this.$store.commit('user/USER_LOGOUT')
+      this.$router.push({name: 'Login'})
+    }
   }
 }
 </script>>

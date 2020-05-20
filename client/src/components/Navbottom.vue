@@ -19,7 +19,9 @@
       </v-btn>
 
       <v-btn>
-            <center><v-icon>list_alt</v-icon></center>
+        <router-link :to="{ name: 'Cart' }" class="link">
+            <center><v-icon>shopping_cart</v-icon></center>
+        </router-link>
       </v-btn>
     </v-bottom-navigation>
 </div>

@@ -1,17 +1,18 @@
 import Vue from 'vue'
-import Router from 'vue-router'
+import VueRouter from 'vue-router'
 import Home from '@/pages/Home'
 import Detail from '@/pages/Detail'
 import Lista from '@/pages/Lista'
 import Login from '@/pages/Login'
 import Register from '@/pages/Registro'
 import NotAuthorization from '@/pages/NotAuthorization'
+import Cart from '@/pages/Cart'
 
-Vue.use(Router)
+import user from '@/store/modules/user'
 
-export default new Router({
-  mode: 'history',
-  routes: [
+Vue.use(VueRouter)
+
+const routes = [
     {
       path: '/',
       name: 'Home',
@@ -21,6 +22,7 @@ export default new Router({
       path: '/register',
       name: 'Register',
       component: Register,
+      meta: { public: true }
     },
     {
       path: '/lista',
@@ -40,7 +42,28 @@ export default new Router({
     {
       path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      meta: { public: true }
+    },
+    {
+      path: '/cart',
+      name: 'Cart',
+      component: Cart
     }
-  ]
+]
+
+const router = new VueRouter({
+  mode: 'history',
+  routes
 })
+
+router.beforeEach((routeTo, routeFrom, next) => {
+  if (!routeTo.meta.public && !user.state.token) {
+    return next({
+      path:'/login'
+    });
+  }
+  next();
+})
+
+export default router
