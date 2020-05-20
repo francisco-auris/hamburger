@@ -1,5 +1,6 @@
 <template>
 <div>
+  <btn-back />
   <v-container>
 
         <v-row justify-sm="center">
@@ -38,18 +39,38 @@
 
         </v-row>
     </v-container>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ text }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        Close
+      </v-btn>
+    </v-snackbar>
 </div>
 </template>
 <script>
 import { http } from '@/api/http'
+import Theback from '../components/Theback'
 
 export default {
+  components: {
+    'btn-back': Theback
+  },
   data () {
     return {
       user: {
         name: '', email: '', password: ''
       },
-      message: ''
+      message: '',
+      snackbar: false,
+      text: 'Seu login foi cadastrado com sucesso.',
+      timeout: 4000,
     }
   },
   methods: {
@@ -63,7 +84,8 @@ export default {
         //send dados for backend
         http.post('api/users', this.user)
           .then(res => {
-            alert('Usuario cadastrado com sucesso');
+            //alert('Usuario cadastrado com sucesso');
+            this.snackbar = true
             this.$router.push( {name: 'Login'} );
           })
           .catch(err => this.message = err.data)

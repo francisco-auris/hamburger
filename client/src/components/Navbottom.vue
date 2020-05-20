@@ -23,6 +23,13 @@
             <center><v-icon>shopping_cart</v-icon></center>
         </router-link>
       </v-btn>
+
+      <v-btn>
+        <router-link :to="{ name: 'Perfil' }" class="link">
+            <center><v-icon>person</v-icon></center>
+        </router-link>
+      </v-btn>
+
     </v-bottom-navigation>
 </div>
 </template>

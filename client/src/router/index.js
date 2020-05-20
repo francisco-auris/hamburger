@@ -7,6 +7,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Registro'
 import NotAuthorization from '@/pages/NotAuthorization'
 import Cart from '@/pages/Cart'
+import Perfil from '@/pages/Perfil'
 
 import user from '@/store/modules/user'
 
@@ -49,6 +50,11 @@ const routes = [
       path: '/cart',
       name: 'Cart',
       component: Cart
+    },
+    {
+      path: '/perfil',
+      name: 'Perfil',
+      component: Perfil
     }
 ]
 

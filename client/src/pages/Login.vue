@@ -2,14 +2,14 @@
 <div>
     <v-container>
 
-        <v-row justify-sm="center" justify="center">
+        <v-row justify-sm="center" justify="center" class="text-center">
 
             <v-col cols="12" lg="6">
                 <center><img src="../assets/icon.png" width="160"></center>
             </v-col>
 
         </v-row>
-        <v-row justify-sm="center" justify="center">
+        <v-row justify-sm="center" justify="center" class="text-center">
             <v-col cols="12" lg="6">
                 <form @submit="handleSubmit($event)" >
                     <input type="text" class="form-input" placeholder="Seu email" v-model="user.email">

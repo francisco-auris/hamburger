@@ -3,7 +3,7 @@
   <button class="btn-delete" @click="removeItem"><v-icon>close</v-icon></button>
   <img :src="image">
   <div class="texto">
-      <h2>{{ title }} {{ chave }}</h2>
+      <h2>{{ title }}</h2>
   </div>
   <div style="clear: both;"></div>
   <hr>
@@ -12,13 +12,13 @@
   <v-btn-toggle style="float:right"
     mandatory
   >
-    <v-btn small>
+    <v-btn small @click="decrement">
       -
     </v-btn>
     <v-btn small>
-      1
+      {{ quantity }}
     </v-btn>
-    <v-btn small>
+    <v-btn small @click="icrement">
       +
     </v-btn>
   </v-btn-toggle>
@@ -27,10 +27,16 @@
 </template>
 <script>
 export default {
-  props: ['image','title','price','chave'],
+  props: ['image','title','price','chave','quantity'],
   methods: {
     removeItem() {
       this.$store.commit('cart/REMOVE_ITEM_CART', this.chave)
+    },
+    icrement(){
+      this.$store.commit('cart/ICREMENT_PRODUCT', this.chave)
+    },
+    decrement(){
+      this.$store.commit('cart/DECREMENT_PRODUCT', this.chave)
     }
   }
 }

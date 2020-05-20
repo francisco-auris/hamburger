@@ -15,6 +15,16 @@ const mutations = {
     //state.items.splice( item, 1 )
     let search = state.items.find( f => f.id == item )
     state.items.splice( search, 1 )
+  },
+
+  ICREMENT_PRODUCT (state, item) {
+    let search = state.items.find( f => f.id == item )
+    search.quantity++
+  },
+
+  DECREMENT_PRODUCT (state, item) {
+    let search = state.items.find( f => f.id == item )
+    search.quantity--
   }
 }
 
@@ -45,6 +55,18 @@ const getters = {
         quantity
       }
     })
+  },
+
+  cartTotalPrice: (state, getters) => {
+    /*return getters.cartProducts.reduce((total, product) => {
+      return total + product.price * product.quantity
+    })*/
+    let total = 0
+    let temp = getters.cartProducts
+    for( let i=0; i < temp.length; i++ ){
+      total = total + (temp[i].price * temp[i].quantity)
+    }
+    return total
   }
 }
 

@@ -13,9 +13,14 @@
           class="pa-2"
           tile
         >
-              <card-produto elevation="4" :chave="produto.id" :title="produto.title" :image="produto.image" :price="produto.price" />
+              <card-produto elevation="4" :chave="produto.id" :quantity="produto.quantity" :title="produto.title" :image="produto.image" :price="produto.price" />
         </v-card>
 
+      </v-col>
+      <v-col>
+        <br>
+        <h3>Total: R$ {{ total }}</h3><br>
+        <v-btn rounded color="#2ECC71" large>Finalizar pedido <v-icon>monetization_on</v-icon></v-btn>
       </v-col>
     </v-row>
     <v-row v-else>
@@ -23,6 +28,7 @@
         <img src="@/assets/emptycart.png" width="100%">
       </v-col>
     </v-row>
+
   </v-container>
 </div>
 </template>
@@ -38,11 +44,13 @@ export default {
   },
   data(){
     return {
+      cart: [], items: []
     }
   },
   computed: {
     ...mapGetters('cart', {
-      teste: 'cartProducts'
+      teste: 'cartProducts',
+      total: 'cartTotalPrice'
     }),
     vefEmpty() {
       return this.teste.length
