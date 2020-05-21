@@ -13,5 +13,5 @@ class Address extends Model
 
     protected $fillable = [
         'title', 'ingredientes', 'image', 'preco'
-    ]
+    ];
 }

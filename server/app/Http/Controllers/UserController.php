@@ -27,6 +27,25 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+    public function userAddress( $id ){
+        if( $id ){
+            $user = User::find( $id );
+            if( $user ){
+                return $user->address;
+            }
+            else {
+                return response()->json(
+                    ['status'=>'empty', 'message'=>'user not find'], 404
+                );
+            }
+        }
+        else {
+            return response()->json(
+                ['status'=>'empty', 'message'=>'id user empty'], 401
+            );
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *

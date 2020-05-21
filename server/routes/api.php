@@ -26,9 +26,13 @@ use Illuminate\Http\Request;
 
     Route::apiResource('users', 'UserController');
 
+    Route::get("user-address/{id}", "UserController@userAddress");
+
     Route::post('login', 'Api\\AuthController@login');
 
     Route::apiResource("produto", "ProdutoController");
+
+    Route::apiResource("address", "AddressController");
 
     Route::group(['middleware' => ['apiJwt']], function(){
 
