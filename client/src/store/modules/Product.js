@@ -26,7 +26,9 @@ const actions = {
     // let model = new ApiProduct();
     return http.get('api/produto').then(res => {
       commit('setProducts', res.data)
+      //console.log(res)
     })
+    .catch(err => console.log('error',err))
   }
 }
 

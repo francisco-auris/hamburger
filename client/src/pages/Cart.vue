@@ -1,5 +1,5 @@
 <template>
-<div>
+<div id="tela">
    <btn-back />
   <v-container>
     <h3>Seu carrinho</h3>
@@ -17,11 +17,6 @@
         </v-card>
 
       </v-col>
-      <v-col>
-        <br>
-        <h3>Total: R$ {{ total }}</h3><br>
-        <v-btn rounded color="#2ECC71" large>Finalizar pedido <v-icon>monetization_on</v-icon></v-btn>
-      </v-col>
     </v-row>
     <v-row v-else>
       <v-col>
@@ -30,6 +25,14 @@
     </v-row>
 
   </v-container>
+  <div class="box-event">
+    <center>
+        <p>
+            <h1><sup>Total R$</sup> {{ total }}</h1>
+        </p>
+        <v-btn rounded color="#34495E" large dark>Finalizar pedido</v-btn>
+    </center>
+  </div>
 </div>
 </template>
 <script>
@@ -64,3 +67,27 @@ export default {
   }
 }
 </script>
+<style scoped>
+.box-event {
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to top, transparent, #2ECC71 90%);
+    color: white;
+    border-radius: 15px 15px 0px 0px;
+    padding: 15px;
+    position:static;
+    bottom:50px;
+}
+p { margin-bottom: 20px;}
+sup {
+    font-size: 12px;
+}
+h1 {
+    font-size: 3em;
+}
+@media (min-height: 900px ) {
+    .box-event {
+        position: absolute;
+    }
+}
+</style>

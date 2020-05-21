@@ -1,6 +1,7 @@
 <template>
   <v-container>
     <v-row>
+
       <v-col cols="12">Nome: {{ dados.name }}</v-col>
     </v-row>
     <v-row>

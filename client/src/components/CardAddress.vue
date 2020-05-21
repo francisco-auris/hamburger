@@ -1,7 +1,7 @@
 <template>
 <div class="box-address">
   <v-icon color="#FF6060">place</v-icon>
-  <p style="float:right;width:90%">
+  <p style="float:right;width:85%">
     <strong>{{ endereco }}</strong><br>
     CEP: {{ cep }}<br>
    {{ obs }}

@@ -30,15 +30,13 @@ use Illuminate\Http\Request;
 
     Route::post('login', 'Api\\AuthController@login');
 
-    Route::apiResource("produto", "ProdutoController");
-
     Route::apiResource("address", "AddressController");
 
     Route::group(['middleware' => ['apiJwt']], function(){
 
         Route::post('logout', 'Api\\AuthController@logout');
 
-        //Route::apiResource('users', 'Api\\UserController');
+        Route::apiResource("produto", "ProdutoController");
 
     });
 
