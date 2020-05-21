@@ -58,7 +58,7 @@ class UserController extends Controller
         $validate = Validator::make( $request->all(), $this->rules );
         if( $validate->fails() ){
             return response()->json(
-                ['status'=>'error', 'message'=>$validate->errors()], 500
+                ['status'=>'error', 'message'=>$validate->errors()], 400
             );
         }
         else {

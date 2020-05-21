@@ -11,6 +11,9 @@
         :flat="true"
         class="bg-white"
         >
+            <v-avatar color="#FF6060" size="32" style="margin-right:15px">
+              <v-icon dark>person</v-icon>
+            </v-avatar>
 
             <v-spacer>
                 <span class="font-weight-black">{{ user.name }}</span>

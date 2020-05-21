@@ -20,7 +20,18 @@
 
       <v-btn>
         <router-link :to="{ name: 'Cart' }" class="link">
-            <center><v-icon>shopping_cart</v-icon></center>
+            <div v-if="items.length > 0">
+            <v-badge
+              color="#FF6060"
+              :content="items.length"
+            >
+              <center><v-icon>shopping_cart</v-icon></center>
+            </v-badge>
+            </div>
+            <div v-else>
+              <center><v-icon>shopping_cart</v-icon></center>
+            </div>
+            <!--<center><v-icon>shopping_cart</v-icon></center>-->
         </router-link>
       </v-btn>
 
@@ -34,7 +45,13 @@
 </div>
 </template>
 <script>
+import { mapGetters } from 'vuex'
 export default {
+    computed: {
+      ...mapGetters('cart', {
+        items: 'getItems'
+      })
+    },
     methods: {
 
     }

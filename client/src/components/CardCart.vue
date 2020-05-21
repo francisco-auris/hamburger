@@ -6,7 +6,7 @@
       <h2>{{ title }}</h2>
   </div>
   <div style="clear: both;"></div>
-  <hr>
+  <v-divider></v-divider>
   <span>R$ {{ price }}</span>
 
   <v-btn-toggle style="float:right"

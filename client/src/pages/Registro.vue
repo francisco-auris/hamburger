@@ -12,23 +12,26 @@
                 <form @submit="handleSubmit($event)" >
                     <h1 align="center">Cadastro</h1>
                     <input type="text" class="form-input" placeholder="Seu nome" v-model="user.name">
+                    <span class="red" v-if="errors.name">{{ errors.name }}</span>
                     <br>
                     <input type="text" class="form-input" placeholder="Seu email" v-model="user.email">
+                    <span class="red" v-if="errors.email">{{ errors.email }}</span>
                     <br>
                     <input type="password" class="form-input" placeholder="Sua senha" v-model="user.password">
 
                     <center>
-                        <v-btn type="submit" rounded class="btn" large>Registrar-se</v-btn>
+                        <v-btn type="submit" rounded class="btn" large>
+                          <span v-if="!load">Registrar-se</span>
+                          <span v-else>
+                            <v-progress-circular
+                              indeterminate
+                              color="primary"
+                            ></v-progress-circular>
+                          </span>
+                        </v-btn>
                         <br>
                         <br>
-                        <v-alert
-                          dense
-                          color="#FF6060"
-                          :dismissible="true"
-                          v-if="message.length > 0"
-                        >
-                          {{ message }}
-                        </v-alert>
+
                         <br>
                         <br>
                         <br>
@@ -43,13 +46,13 @@
       v-model="snackbar"
       :timeout="timeout"
     >
-      {{ text }}
+      {{ message }}
       <v-btn
         color="blue"
         text
         @click="snackbar = false"
       >
-        Close
+        <v-icon>close</v-icon>
       </v-btn>
     </v-snackbar>
 </div>
@@ -67,29 +70,48 @@ export default {
       user: {
         name: '', email: '', password: ''
       },
+      load: Boolean,
+      errors: {},
       message: '',
       snackbar: false,
       text: 'Seu login foi cadastrado com sucesso.',
       timeout: 4000,
     }
   },
+  mounted() {
+    this.load = false
+  },
   methods: {
+    loadOff() {
+      this.load = false
+      console.log('desligando load', this.load)
+    },
     handleSubmit(e){
       e.preventDefault();
+      this.load = true
       if( this.user.name == '' || this.user.email == '' || this.user.password == '' ){
+        this.snackbar = true
         this.message = "Verifique o preenchimento de todos os campos"
       }
       else {
+
         this.message = ''
         //send dados for backend
         http.post('api/users', this.user)
           .then(res => {
             //alert('Usuario cadastrado com sucesso');
+            this.loadOff();
             this.snackbar = true
             this.$router.push( {name: 'Login'} );
           })
-          .catch(err => this.message = err.data)
+          .catch(err => {
+            this.loadOff();
+            this.errors = err.data.message
+          })
       }
+
+      this.loadOff();
+
     }
   }
 }
@@ -123,4 +145,5 @@ a span {
     color: #FF6060;
     text-decoration: underline;
 }
+.red { color: red; font-size: 0.8em; margin-left: 10px; }
 </style>

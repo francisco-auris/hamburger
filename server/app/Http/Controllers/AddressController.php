@@ -36,6 +36,7 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         //
+        //return $request->all(); exit;
         $user = User::find( $request->input('user_id') );
         if( $user ){
 
@@ -69,7 +70,7 @@ class AddressController extends Controller
         }
         else {
             return response()->json(
-                ['status'=>'empty', 'message'=>'User not find ref'], 404
+                ['status'=>'empty', 'message'=>'User not find ref'], 400
             );
         }
     }

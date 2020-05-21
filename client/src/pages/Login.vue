@@ -17,17 +17,18 @@
                     <input type="password" class="form-input" placeholder="Sua senha" v-model="user.password">
 
                     <center>
-                        <v-btn type="submit" rounded class="btn" large>Entrar</v-btn>
+                        <v-btn type="submit" rounded class="btn" large>
+                          <span v-if="!load">Entrar</span>
+                          <span v-else>
+                            <v-progress-circular
+                              indeterminate
+                              color="primary"
+                            ></v-progress-circular>
+                          </span>
+                        </v-btn>
                         <br>
                         <br>
-                        <v-alert
-                          dense
-                          color="#FF6060"
-                          :dismissible="true"
-                          v-if="message.length > 0"
-                        >
-                          {{ message }}
-                        </v-alert>
+
                         <br>
                         <br>
                         <br>
@@ -38,7 +39,19 @@
             </v-col>
 
         </v-row>
-
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="timeout"
+    >
+      {{ message }}
+      <v-btn
+        color="blue"
+        text
+        @click="snackbar = false"
+      >
+        <v-icon>close</v-icon>
+      </v-btn>
+    </v-snackbar>
     </v-container>
 </div>
 </template>
@@ -49,12 +62,20 @@ export default {
   data () {
     return {
       user: {},
-      message: ''
+      message: '',
+      snackbar: false,
+      text: 'Seu login foi cadastrado com sucesso.',
+      timeout: 4000,
+      load: Boolean
     }
+  },
+  mounted(){
+    this.load = false
   },
   methods: {
     handleSubmit: function (e) {
       e.preventDefault()
+      this.load = true
       // Auth
       this.$store.dispatch('user/actionLogin', this.user)
       .then(res => {
@@ -62,12 +83,17 @@ export default {
         this.$router.push( {name: 'Lista'} );
       })
       .catch(err => {
+        console.log(err.data)
         if( err.status == 401 ){
           this.message = "Usuário ou Senha inválido"
+          this.snackbar = true
         }else {
           this.message = err.data.error
+          this.snackbar = true
         }
       })
+
+      this.load = false
       //this.actionLogin(this.user);
     }
   }

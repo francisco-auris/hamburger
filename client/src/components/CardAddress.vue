@@ -2,15 +2,16 @@
 <div class="box-address">
   <v-icon color="#FF6060">place</v-icon>
   <p style="float:right;width:90%">
-    <strong>Rua 92, N 419, Jereissati II - CE</strong><br>
-    Perto do mercantil super G & N
+    <strong>{{ endereco }}</strong><br>
+    CEP: {{ cep }}<br>
+   {{ obs }}
   </p>
   <div style="clear: both;"></div>
 </div>
 </template>
 <script>
 export default {
-
+  props: ['endereco','cep','obs']
 }
 </script>
 <style scoped>
