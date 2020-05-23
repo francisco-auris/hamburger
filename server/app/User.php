@@ -15,6 +15,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany('App\Address');
     }
 
+    function order(){
+        return $this->hasMany('App\Order');
+    }
+
     /**
      * The attributes that are mass assignable.
      *

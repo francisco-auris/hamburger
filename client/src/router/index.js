@@ -8,6 +8,7 @@ import Register from '@/pages/Registro'
 import NotAuthorization from '@/pages/NotAuthorization'
 import Cart from '@/pages/Cart'
 import Perfil from '@/pages/Perfil'
+import Teste from '@/pages/Teste'
 
 import user from '@/store/modules/user'
 
@@ -18,6 +19,12 @@ const routes = [
       path: '/',
       name: 'Home',
       component: Home,
+    },
+    {
+      path: '/teste',
+      name: 'Teste',
+      component: Teste,
+      meta: { public: true }
     },
     {
       path: '/register',
